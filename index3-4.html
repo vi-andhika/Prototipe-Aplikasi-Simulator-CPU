@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prototipe Simulator CPU Scheduling Premium Enterprise</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="icon/icon-orkom.png">
+</head>
+<body>
+
+  <nav class="navbar">
+      <div class="nav-logo">PROTOTIPE</div>
+      <div class="nav-menu-wrapper">
+          <div class="nav-item active" onclick="switchMode('statis', this)">Opsi 1: Statis</div>
+          <div class="nav-item" onclick="switchMode('dinamis', this)">Opsi 2: Dinamis</div>
+          <div class="nav-indicator" id="nav-indicator"></div>
+      </div>
+  </nav>
+
+  <div class="dashboard">
+      <header>
+          <h1>Prototipe Sistem Aplikasi CPU Scheduling</h1>
+          <p id="sub-header-text">Arsitektur Simulator Perbandingan Algoritma SJF vs SRTF (Mode Statis Master)</p>
+      </header>
+
+      <section class="card">
+          <h2 id="judul-antrean">Tabel Antrean Register Proses Master (Statis)</h2>
+          
+          <div id="form-dinamis-wrapper" style="display: none;">
+              <div class="form-row">
+                  <div class="form-group">
+                      <label>ID Proses</label>
+                      <input type="text" id="input-id" placeholder="Contoh: P1">
+                  </div>
+                  <div class="form-group">
+                      <label>Arrival Time (AT)</label>
+                      <input type="number" id="input-at" min="0" placeholder="0">
+                  </div>
+                  <div class="form-group">
+                      <label>Burst Time (BT)</label>
+                      <input type="number" id="input-bt" min="1" placeholder="1">
+                  </div>
+                  <button class="btn-add" onclick="tambahProsesDinamis()">+ Tambah Antrean</button>
+              </div>
+          </div>
+
+          <div class="input-grid">
+              <div>
+                  <table id="tabel-input-utama">
+                      <thead><tr><th>ID Komputasi</th><th>Arrival Time (AT)</th><th>Burst Time (BT)</th></tr></thead>
+                      <tbody id="body-tabel-input"></tbody>
+                  </table>
+              </div>
+              
+              <div class="btn-group">
+                  <button class="btn-sjf" onclick="eksekusiPenjadwalanSJF()">Eksekusi SJF (Non-Preemptive)</button>
+                  <button class="btn-srtf" onclick="eksekusiPenjadwalanSRTF()">Eksekusi SRTF (Preemptive)</button>
+              </div>
+          </div>
+      </section>
+
+      <main class="card output-card-container" id="panel-output">
+          <h2 id="judul-algoritma">Hasil Komputasi</h2>
+          
+          <h3 style="font-size: 1rem; margin-bottom: 12px; color: var(--text-muted); font-weight: 500;">Diagram Alir Gantt Chart Teranimasi:</h3>
+          <div class="gantt-wrapper"><div class="gantt-timeline" id="gantt-timeline-render"></div></div>
+          
+          <div class="analysis-layout">
+              <div>
+                  <h3 style="font-size: 1rem; margin-bottom: 12px; color: var(--text-muted); font-weight: 500;">Log Kronologi Pergerakan CPU:</h3>
+                  <div class="terminal-box" id="system-logger-terminal"></div>
+              </div>
+
+              <div>
+                  <h3 style="font-size: 1rem; margin-bottom: 12px; color: var(--text-muted); font-weight: 500;">Tabel Analisis Parameter Efisiensi:</h3>
+                  <table id="tabel-hasil-render">
+                      <thead><tr><th>Proses</th><th>AT</th><th>BT</th><th>CT</th><th>TAT</th><th>WT</th></tr></thead>
+                      <tbody></tbody>
+                  </table>
+                  
+                  <div class="grid-stats">
+                      <div class="stat-box"><span>Average Waiting Time (AWT)</span><var id="nilai-awt">0.00 ms</var></div>
+                      <div class="stat-box"><span>Average Turnaround Time (ATT)</span><var id="nilai-att">0.00 ms</var></div>
+                  </div>
+              </div>
+          </div>
+      </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
